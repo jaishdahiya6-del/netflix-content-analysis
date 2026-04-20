@@ -1,0 +1,95 @@
+
+============================================================
+  NETFLIX CONTENT STRATEGY — BUSINESS INSIGHTS REPORT
+============================================================
+  Dataset: 8,806 titles  |  Columns: 18
+  Analysis Period: 1925 – 2021
+
+============================================================
+  INSIGHT 1: Content Mix Strategy
+============================================================
+  Movies  : 6,130 (69.6%)
+  TV Shows: 2,676 (30.4%)
+  
+  STRATEGIC INSIGHT:
+  Netflix maintains a 70/30 Movie/Show split.
+  Movies attract one-time viewers; TV Shows build long-term subscribers.
+  The heavy movie focus suggests Netflix competes directly with cinemas.
+  Recommendation: Increase TV Show % to boost viewer retention (binge-watching).
+
+============================================================
+  INSIGHT 2: Library Growth Trends
+============================================================
+  Peak content addition year: 2019 (1,998 titles)
+  Average titles added per year (2016–2021): 1236
+  
+  STRATEGIC INSIGHT:
+  Netflix hit peak content acquisition in 2019.
+  Post-2020 slowdown likely reflects the shift from licensing to
+  original content production (Netflix Originals are more expensive
+  but give permanent IP ownership — smarter long-term strategy).
+
+============================================================
+  INSIGHT 3: Geographic Content Strategy
+============================================================
+  Top 5 Content-Producing Countries:
+    United States        : 3,211 titles (36.5%)
+    India                : 1,008 titles (11.4%)
+    United Kingdom       : 628 titles (7.1%)
+    Canada               : 271 titles (3.1%)
+  
+  STRATEGIC INSIGHT:
+  US dominates but Netflix's fastest-growing regions are India, South Korea,
+  and Japan. K-dramas and Indian cinema have global appeal (proven by shows
+  like Squid Game). Strategy: invest in regional originals that travel globally.
+  This reduces content costs while maximizing international subscriber growth.
+
+============================================================
+  INSIGHT 4: Audience Targeting via Ratings
+============================================================
+  Adult content (TV-MA, R, NC-17): 4,012 titles (45.6%)
+  Top rating: TV-MA with 3,210 titles
+  
+  STRATEGIC INSIGHT:
+  ~46% of Netflix content targets adults (18+).
+  This is intentional — adult subscribers pay premium plans and churn less.
+  Family/kids content (~10-15%) serves as a retention tool for households.
+  Recommendation: Expand kids/family category to reduce churn in family subs.
+
+============================================================
+  INSIGHT 5: Genre & Content Strategy
+============================================================
+  Top genre: International Movies
+  International content labels: 4,102 (21.2% of genre tags)
+  
+  STRATEGIC INSIGHT:
+  International Movies & TV Shows are among Netflix's fastest-growing categories.
+  This reflects Netflix's global-first strategy since 2016 — they understood
+  that international content is the key to 200M+ subscribers globally.
+  Non-English originals now win Emmys and Oscars — validating this bet.
+
+============================================================
+  INSIGHT 6: Content Freshness Analysis
+============================================================
+  Content released in last 5 years: 2,575 (29.2%)
+  Average content age: 9.8 years
+  
+  STRATEGIC INSIGHT:
+  Netflix balances fresh content (recent releases subscribers want)
+  with classic/catalogue content (cheap to license, fills the library).
+  Fresh content drives new subscriptions; catalogue content retains them.
+
+============================================================
+  EXECUTIVE SUMMARY — 3 KEY RECOMMENDATIONS
+============================================================
+  1. RETENTION:   Invest more in TV Shows (multi-season) to drive binge-watching
+                  and reduce monthly churn rate.
+  
+  2. GLOBAL:      Prioritize regional originals (India, Korea, Spain, Brazil)
+                  that travel across borders to grow international subscribers.
+  
+  3. FAMILY:      Expand kids/family content from ~12% to ~20% of library
+                  to capture the household subscription market.
+  
+  These 3 moves align with Netflix's actual 2023-2024 strategy — validating
+  that data-driven decisions match real-world business outcomes.
