@@ -1,0 +1,21 @@
+# Virtual environment - never push this to GitHub
+venv/
+
+# Secret keys - NEVER push this
+.env
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Large data files (optional - comment out if you want data on GitHub)
+# data/*.csv
