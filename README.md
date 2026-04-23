@@ -44,7 +44,7 @@ This project performs a complete analysis of Netflix's content library to uncove
 
 ---
 
-## 📊 Visualizations (12 Charts)
+## 📊 Visualizations (Planned)
 
 | # | Chart | Insight |
 |---|---|---|
@@ -52,79 +52,41 @@ This project performs a complete analysis of Netflix's content library to uncove
 | 2 | Yearly Growth | Library growth 2008–2021 |
 | 3 | Top Genres | Most popular categories |
 | 4 | Country Distribution | Top content-producing nations |
-| 5 | Ratings Analysis | Audience targeting by rating |
-| 6 | Duration Distribution | Movie length & show seasons |
-| 7 | Monthly Heatmap | When Netflix adds content |
-| 8 | Top Directors | Most prolific directors |
-| 9 | ML Classifier Results | Model accuracy comparison |
-| 10 | Feature Importance | What predicts content type |
-| 11 | Clustering Results | KMeans elbow + cluster sizes |
-| 12 | Similarity Heatmap | TF-IDF content similarity |
 
 ---
 
 ## 🤖 Machine Learning Models
 
 ### 1. Content Type Classifier
-- **Goal:** Predict Movie vs TV Show from metadata
-- **Models:** Random Forest, Logistic Regression, Gradient Boosting
-- **Best accuracy:** ~85%+
+- **Goal:** Predict Movie vs TV Show from metadata.
+- **Models:** Random Forest, Logistic Regression.
 
-### 2. KMeans Clustering
-- **Goal:** Discover hidden content groupings
-- **Method:** KMeans with elbow method (K=5)
-- **Use case:** Content tagging automation
-
-### 3. TF-IDF Content Recommender
-- **Goal:** "If you liked X, you'll like Y"
-- **Method:** TF-IDF vectorization + cosine similarity
-- **Input:** Any Netflix title → Output: 5 similar titles
-
----
-
-## 🚀 How to Run
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/YOUR_USERNAME/netflix-content-analysis.git
-cd netflix-content-analysis
-
-# 2. Create virtual environment
-python -m venv venv
-venv\Scripts\activate        # Windows
-source venv/bin/activate     # Mac/Linux
-
-# 3. Install dependencies
-pip install -r requirements.txt
-
-# 4. Add dataset
-# Download netflix_titles.csv from Kaggle and place in /data/
-
-# 5. Run the full pipeline
-python run_project.py
-```
+### 2. TF-IDF Content Recommender
+- **Goal:** "If you liked X, you'll like Y" using Cosine Similarity.
 
 ---
 
 ## 📁 Project Structure
+- `data/`: Contains `netflix_titles.csv`.
+- `notebooks/`: EDA and Model building.
+- `src/`: Python scripts for automation.
+- `requirements.txt`: Project dependencies.
+
 ---
 
 ## 💼 Business Insights
 
-1. **Retention:** Invest in multi-season TV Shows to drive binge-watching
-2. **Global:** Regional originals (India, Korea) have disproportionate global appeal
-3. **Family:** Expanding kids content reduces household churn
+1. **Retention:** Invest in multi-season TV Shows to drive binge-watching.
+2. **Global:** Regional originals (India, Korea) have disproportionate global appeal.
+3. **Family:** Expanding kids content reduces household churn.
 
 ---
 
 ## 👤 Author
 
-**Jaish Dahiya**  
-Data Science Portfolio Project  
-[GitHub](https://github.com/YOUR_USERNAME) | [LinkedIn](https://linkedin.com/in/YOUR_PROFILE)
+**Jaish Dahiya** *Data Science Student at DUCAT* [GitHub](https://github.com/jaishdahiya6-del) | [LinkedIn](https://www.linkedin.com/in/jaish-dahiya-5a9753395)
 
 ---
 
 ## 📄 License
-
-MIT License — feel free to use this project for learning and portfolio purposes.
+MIT License
