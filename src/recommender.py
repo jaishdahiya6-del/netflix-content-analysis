@@ -1,39 +1,35 @@
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
-# 1. Load Dataset
-df_netflix = pd.read_csv('netflix_titles.csv')
+def get_recommendations(df, title):
+    # 1. Combine features into a single 'soup' of words
+    df['content_features'] = (df['description'] + " " + 
+                             df['listed_in'] + " " + 
+                             df['cast']).fillna('')
 
-# 2. Check for missing values (Day 8 habit)
-print(df_netflix.isnull().sum())
+    # 2. Vectorize the text data
+    tfidf = TfidfVectorizer(stop_words='english')
+    tfidf_matrix = tfidf.fit_transform(df['content_features'])
 
-# 3. Handling Nulls
-df_netflix['country'] = df_netflix['country'].fillna('Unknown')
-df_netflix['cast'] = df_netflix['cast'].fillna('No Cast')
-df_netflix.dropna(subset=['date_added', 'rating'], inplace=True)
-plt.figure(figsize=(8, 6))
-# Pie chart for distribution
-colors = ['#b20710', '#221f1f'] # Netflix red and black theme
-df_netflix['type'].value_counts().plot.pie(explode=[0.05, 0.05], autopct='%1.1f%%', colors=colors, startangle=90)
-plt.title('Distribution of Netflix Content: Movies vs TV Shows', fontsize=14, fontweight='bold')
-plt.ylabel('')
-plt.show()
-plt.figure(figsize=(12, 6))
-# Country column mein multiple names hote hain, isliye split karke pehla count karenge
-top_countries = df_netflix['country'].str.split(', ').str[0].value_counts().head(10)
+    # 3. Compute the similarity matrix
+    cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
 
-sns.barplot(x=top_countries.values, y=top_countries.index, palette='Reds_r')
-plt.title('Top 10 Countries with most content on Netflix', fontsize=16, fontweight='bold')
-plt.xlabel('Number of Titles')
-plt.show()
-# Year extract karna
-df_netflix['year_added'] = pd.to_datetime(df_netflix['date_added']).dt.year
+    # 4. Find the movie index and return top 5 matches
+    try:
+        idx = df[df['title'].str.lower() == title.lower()].index[0]
+        sim_scores = list(enumerate(cosine_sim[idx]))
+        sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
+        
+        # Get indices of top 5 similar movies (excluding itself)
+        movie_indices = [i[0] for i in sim_scores[1:6]]
+        return df['title'].iloc[movie_indices].tolist()
+    except IndexError:
+        return "Title not found in dataset."
 
-plt.figure(figsize=(12, 6))
-sns.lineplot(data=df_netflix.groupby('year_added')['show_id'].count(), marker='o', color='#b20710')
-plt.title('Content Added Over Years', fontsize=15, fontweight='bold')
-plt.xlabel('Year')
-plt.ylabel('Count of Titles')
-plt.grid(True, alpha=0.3)
-plt.show()
+# --- TEST BLOCK ---
+if __name__ == "__main__":
+    # Ensure you have your cleaned data file ready
+    data = pd.read_csv('cleaned_netflix_data.csv')
+    print(f"Recommendations for 'Peaky Blinders':")
+    print(get_recommendations(data, 'Peaky Blinders'))
