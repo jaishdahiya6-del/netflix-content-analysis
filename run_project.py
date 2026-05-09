@@ -1,49 +1,42 @@
-# run_project.py
-# ─────────────────────────────────────────────────────────────────
-# PURPOSE: One script to run the ENTIRE Netflix analysis project
-# Just run: python run_project.py
-# ─────────────────────────────────────────────────────────────────
+import unittest
+import pandas as pd
+from recommender import get_recommendations
 
-import sys
-import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
+class TestNetflixLogic(unittest.TestCase):
+    def setUp(self):
+        # Small mock dataset for testing
+        self.mock_df = pd.DataFrame({
+            'title': ['Movie A', 'Movie B', 'Movie C'],
+            'description': ['A story about space and stars', 'Astronauts in space', 'A romantic dinner'],
+            'listed_in': ['Sci-Fi', 'Sci-Fi', 'Romance'],
+            'cast': ['Actor 1', 'Actor 1', 'Actor 2']
+        })
 
-from data_loader   import load_netflix_data # type: ignore
-from data_cleaning import clean_netflix_data # type: ignore
-from eda           import run_all_eda # type: ignore
-from ml_models     import run_all_ml # type: ignore
-from insights      import generate_insights # type: ignore
+    def test_recommender(self):
+        result = get_recommendations(self.mock_df, 'Movie A')
+        # Movie B should be more similar to A than Movie C is
+        self.assertIn('Movie B', result)
 
-def main():
-    print("\n" + "█"*60)
-    print("█  NETFLIX CONTENT ANALYSIS — FULL PIPELINE             █")
-    print("█"*60)
+if __name__ == '__main__':
+    unittest.main()
+    import unittest
+import pandas as pd
+from recommender import get_recommendations
 
-    # Step 1: Load
-    print("\n[1/4] Loading dataset...")
-    df_raw = load_netflix_data()
+class TestNetflixLogic(unittest.TestCase):
+    def setUp(self):
+        # Small mock dataset for testing
+        self.mock_df = pd.DataFrame({
+            'title': ['Movie A', 'Movie B', 'Movie C'],
+            'description': ['A story about space and stars', 'Astronauts in space', 'A romantic dinner'],
+            'listed_in': ['Sci-Fi', 'Sci-Fi', 'Romance'],
+            'cast': ['Actor 1', 'Actor 1', 'Actor 2']
+        })
 
-    # Step 2: Clean
-    print("\n[2/4] Cleaning data...")
-    df_clean = clean_netflix_data(df_raw)
+    def test_recommender(self):
+        result = get_recommendations(self.mock_df, 'Movie A')
+        # Movie B should be more similar to A than Movie C is
+        self.assertIn('Movie B', result)
 
-    # Step 3: EDA (8 charts)
-    print("\n[3/4] Running EDA — generating 8 charts...")
-    run_all_eda(df_clean)
-
-    # Step 4: ML (3 models + 4 ML charts)
-    print("\n[4/4] Running Machine Learning models...")
-    run_all_ml(df_clean)
-
-    # Step 5: Business Insights
-    print("\n[5/5] Generating business insights report...")
-    generate_insights(df_clean)
-
-    print("\n" + "█"*60)
-    print("█  PROJECT COMPLETE!                                     █")
-    print("█  Charts  → /visualizations/ (12 PNG files)            █")
-    print("█  Report  → /reports/business_insights_report.txt      █")
-    print("█"*60)
-
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    unittest.main()
