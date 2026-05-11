@@ -23,7 +23,11 @@ This chart tracks how Netflix has changed its library composition over the last 
 ### 2. Global Content Distribution
 An interactive map showing which countries are the biggest contributors to the Netflix library.
 ![Global Map](images/global_map.png)
-
+### 🛡️ Data Quality & Validation
+To ensure the integrity of the analysis, the following cleaning protocol was implemented:
+- **Outlier Detection:** Applied the Interquartile Range (IQR) method to remove statistically anomalous sales figures.
+- **Automated Imputation:** Used median-based imputation for numerical gaps to maintain data distribution.
+- **Standardization:** Converted all date-time strings to ISO 8601 format for time-series compatibility.
 ---
 
 ## 🛠️ Installation & Usage
