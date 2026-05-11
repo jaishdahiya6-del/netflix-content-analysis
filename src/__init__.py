@@ -1,26 +1,43 @@
 import pandas as pd
+import numpy as np
 
-def clean_netflix_data(file_path):
-    df = pd.read_csv(file_path)
-    
-    # Handling missing values
-    df['country'] = df['country'].fillna('Unknown')
-    df['cast'] = df['cast'].fillna('No Data')
-    df['director'] = df['director'].fillna('No Data')
-    
-    # Drop rows with missing date_added or rating (crucial for analysis)
-    df.dropna(subset=['date_added', 'rating'], inplace=True)
-    
-    # Standardize date format
-    df['date_added'] = pd.to_numeric(pd.to_datetime(df['date_added'].str.strip(), errors='coerce').dt.year)
-    
-    print("✅ Data Cleaning Complete!")
-    return df
+class DataCleaner:
+    def __init__(self, df):
+        self.df = df
+
+    def handle_missing_values(self):
+        """Impute numerical with median and categorical with mode."""
+        for col in self.df.columns:
+            if self.df[col].dtype in ['int64', 'float64']:
+                self.df[col] = self.df[col].fillna(self.df[col].median())
+            else:
+                self.df[col] = self.df[col].fillna(self.df[col].mode()[0])
+        return self.df
+
+    def remove_outliers(self, column):
+        """Detect and remove outliers using the IQR Method."""
+        Q1 = self.df[column].quantile(0.25)
+        Q3 = self.df[column].quantile(0.75)
+        IQR = Q3 - Q1
+        lower_bound = Q1 - 1.5 * IQR
+        upper_bound = Q3 + 1.5 * IQR
+        
+        self.df = self.df[(self.df[column] >= lower_bound) & (self.df[column] <= upper_bound)]
+        return self.df
+
+    def get_clean_data(self):
+        return self.df
 
 if __name__ == "__main__":
-    # Change 'netflix_titles.csv' to your actual file name
-    try:
-        data = clean_netflix_data('netflix_titles.csv')
-        data.to_csv('cleaned_netflix_data.csv', index=False)
-    except FileNotFoundError:
-        print("❌ Error: netflix_titles.csv not found.")
+    # Test with your Amazon or Netflix data
+    df = pd.read_csv('amazon_sales.csv') # or your target file
+    cleaner = DataCleaner(df)
+    cleaner.handle_missing_values()
+    
+    # Example: Removing outliers from 'Sales' or 'Price'
+    if 'Sales' in df.columns:
+        cleaner.remove_outliers('Sales')
+        
+    clean_df = cleaner.get_clean_data()
+    clean_df.to_csv('final_cleaned_data.csv', index=False)
+    print("✅ Professional cleaning and outlier removal complete!")
