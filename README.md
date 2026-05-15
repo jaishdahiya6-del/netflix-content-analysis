@@ -13,7 +13,15 @@ This project performs an in-depth Exploratory Data Analysis (EDA) on a dataset c
 - **Genre Dominance:** International Movies and Dramas represent the largest share of the library.
 
 ---
+### 📉 Statistical Foundation
+To ensure our machine learning models are accurate, I performed a statistical audit:
+- **Skewness Analysis:** Identified if the data is right-skewed (common in sales data) to decide on proper normalization techniques.
+- **Outlier Impact:** Measured the gap between Mean and Median to understand the influence of high-value outliers.
+- **Central Tendency:** Visualized the data distribution to verify if it meets the assumptions of Linear Regression.
 
+
+
+[Image of Normal distribution vs skewed distribution curves]
 ## 📊 Visualizations
 
 ### 1. Strategy Shift (Movies vs TV Shows)
