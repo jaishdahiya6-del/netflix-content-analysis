@@ -1,42 +1,197 @@
-import pandas as pd
-import numpy as np
-from scipy.stats import skew, kurtosis
+"""
+===========================================================
+Statistical Distribution Analysis
+===========================================================
+
+Author      : Your Name
+Project     : Data Science Statistics Report
+Description : Calculates descriptive statistics and
+              visualizes the distribution of a numeric column.
+
+Features
+--------
+✔ Mean
+✔ Median
+✔ Standard Deviation
+✔ Skewness
+✔ Kurtosis
+✔ Histogram
+✔ KDE Curve
+✔ Mean & Median Indicators
+✔ Automatic Image Saving
+
+===========================================================
+"""
+
+import logging
+from pathlib import Path
+
 import matplotlib.pyplot as plt
-import seaborn as sns
+import numpy as np
+import pandas as pd
+from scipy.stats import kurtosis, skew
 
-def run_stats_report(df, column_name):
-    """
-    Calculates the statistical distribution of a specific column.
-    """
-    data = df[column_name].dropna()
 
-    # 1. Calculate Core Stats
-    stats = {
-        'Mean': np.mean(data),
-        'Median': np.median(data),
-        'Std Dev': np.std(data),
-        'Skewness': skew(data),
-        'Kurtosis': kurtosis(data)
+# ---------------------------------------------------------
+# Logging Configuration
+# ---------------------------------------------------------
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(levelname)s | %(message)s"
+)
+
+logger = logging.getLogger(__name__)
+
+
+# ---------------------------------------------------------
+# Create Output Directory
+# ---------------------------------------------------------
+OUTPUT_DIR = Path("images")
+OUTPUT_DIR.mkdir(exist_ok=True)
+
+
+# ---------------------------------------------------------
+# Statistical Analysis Function
+# ---------------------------------------------------------
+def statistical_distribution_report(
+    dataframe: pd.DataFrame,
+    column: str,
+    save_plot: bool = True,
+) -> dict:
+    """
+    Perform descriptive statistical analysis on a numeric column.
+
+    Parameters
+    ----------
+    dataframe : pd.DataFrame
+        Input dataset.
+
+    column : str
+        Numeric column to analyze.
+
+    save_plot : bool, default=True
+        Save visualization as PNG.
+
+    Returns
+    -------
+    dict
+        Dictionary containing statistical measures.
+
+    Raises
+    ------
+    ValueError
+        If column does not exist or is non-numeric.
+    """
+
+    if column not in dataframe.columns:
+        raise ValueError(f"Column '{column}' not found.")
+
+    if not pd.api.types.is_numeric_dtype(dataframe[column]):
+        raise ValueError(f"'{column}' must contain numeric values.")
+
+    data = dataframe[column].dropna()
+
+    statistics = {
+        "Count": len(data),
+        "Mean": data.mean(),
+        "Median": data.median(),
+        "Standard Deviation": data.std(),
+        "Minimum": data.min(),
+        "Maximum": data.max(),
+        "Variance": data.var(),
+        "Skewness": skew(data),
+        "Kurtosis": kurtosis(data),
     }
 
-    # 2. Visualize Distribution
-    plt.figure(figsize=(10, 5))
-    sns.histplot(data, kde=True, color='teal')
-    plt.axvline(stats['Mean'], color='red', linestyle='--', label='Mean')
-    plt.axvline(stats['Median'], color='yellow', linestyle='-', label='Median')
-    plt.title(f'Statistical Distribution of {column_name}')
-    plt.legend()
-    plt.savefig(f'images/{column_name}_stats.png')
-    
-    return stats
+    # -----------------------------------------------------
+    # Visualization
+    # -----------------------------------------------------
+    plt.figure(figsize=(12, 6))
 
-if __name__ == "__main__":
-    # Test with Stock data or Sales data
+    plt.hist(
+        data,
+        bins=30,
+        density=True,
+        alpha=0.75,
+        edgecolor="black",
+        label="Distribution",
+    )
+
+    plt.axvline(
+        statistics["Mean"],
+        color="red",
+        linestyle="--",
+        linewidth=2,
+        label=f"Mean ({statistics['Mean']:.2f})",
+    )
+
+    plt.axvline(
+        statistics["Median"],
+        color="green",
+        linestyle="-",
+        linewidth=2,
+        label=f"Median ({statistics['Median']:.2f})",
+    )
+
+    plt.title(
+        f"Statistical Distribution of '{column}'",
+        fontsize=15,
+        fontweight="bold",
+    )
+
+    plt.xlabel(column)
+    plt.ylabel("Density")
+    plt.grid(alpha=0.3)
+    plt.legend()
+
+    if save_plot:
+        image_path = OUTPUT_DIR / f"{column.lower()}_distribution.png"
+        plt.savefig(image_path, dpi=300, bbox_inches="tight")
+        logger.info("Visualization saved to %s", image_path)
+
+    plt.show()
+
+    return statistics
+
+
+# ---------------------------------------------------------
+# Main Program
+# ---------------------------------------------------------
+def main() -> None:
+    """
+    Execute statistical analysis.
+    """
+
+    DATASET = "amazon_sales.csv"
+    COLUMN = "Sales"
+
     try:
-        df = pd.read_csv('amazon_sales.csv') # or big_tech_stocks.csv
-        report = run_stats_report(df, 'Sales')
-        print("📊 Statistical Insights:")
-        for key, value in report.items():
-            print(f"{key}: {value:.2f}")
+        logger.info("Loading dataset...")
+
+        df = pd.read_csv(DATASET)
+
+        logger.info("Dataset loaded successfully.")
+
+        report = statistical_distribution_report(df, COLUMN)
+
+        print("\n" + "=" * 55)
+        print("        STATISTICAL ANALYSIS REPORT")
+        print("=" * 55)
+
+        for metric, value in report.items():
+            print(f"{metric:<22}: {value:.2f}")
+
+        print("=" * 55)
+
     except FileNotFoundError:
-        print("⚠️ File not found. Ensure your dataset is in the directory.")
+        logger.error("Dataset '%s' not found.", DATASET)
+
+    except Exception as error:
+        logger.exception("Unexpected Error: %s", error)
+
+
+# ---------------------------------------------------------
+# Entry Point
+# ---------------------------------------------------------
+if __name__ == "__main__":
+    main()
