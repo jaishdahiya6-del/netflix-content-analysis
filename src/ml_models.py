@@ -17,17 +17,6 @@ import seaborn as sns
 import os
 import warnings
 warnings.filterwarnings('ignore')
-def load_netflix_data():
-    # CHANGE THIS LINE:
-    # From: file_path = "data/netflix_titles.csv"
-    # To:
-    file_path = "netflix_titles.csv" 
-    
-    import os
-    if not os.path.exists(file_path):
-        raise FileNotFoundError(f"Dataset not found at: {os.path.abspath(file_path)}")
-    
-    # ... rest of your loading code (pd.read_csv, etc)
 from sklearn.model_selection   import train_test_split, cross_val_score # type: ignore
 import sklearn.preprocessing # type: ignore
 from sklearn.ensemble          import RandomForestClassifier, GradientBoostingClassifier # type: ignore

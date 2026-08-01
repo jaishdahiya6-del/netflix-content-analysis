@@ -1,47 +1,97 @@
-# 🎬 Netflix Content Analysis & Recommendation Trends
+# 🎬 Netflix Content Analysis & Smart Recommendation Dashboard
 
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-![Seaborn](https://img.shields.io/badge/Seaborn-444876?style=for-the-badge&logo=python&logoColor=white)
-![Plotly](https://img.shields.io/badge/Plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white)
-
-## 📌 Project Overview
-This project performs an in-depth Exploratory Data Analysis (EDA) on a dataset containing over **8,800 Netflix titles**. The goal is to uncover shifts in Netflix's content strategy, identify top-performing genres, and visualize the global distribution of content.
-
-### 🔍 Key Insights
-- **Content Shift:** Analysis shows a massive pivot toward TV Shows over Movies starting around 2015.
-- **Global Leader:** The United States remains the top producer, followed closely by India for Movie content.
-- **Genre Dominance:** International Movies and Dramas represent the largest share of the library.
+An interactive, production-ready full web app/dashboard built with **Streamlit**, **Plotly**, and **Scikit-Learn** to perform deep-dive exploratory data analysis, descriptive statistical audits, and machine learning insights on over **8,800 Netflix titles**.
 
 ---
-### 📉 Statistical Foundation
-To ensure our machine learning models are accurate, I performed a statistical audit:
-- **Skewness Analysis:** Identified if the data is right-skewed (common in sales data) to decide on proper normalization techniques.
-- **Outlier Impact:** Measured the gap between Mean and Median to understand the influence of high-value outliers.
-- **Central Tendency:** Visualized the data distribution to verify if it meets the assumptions of Linear Regression.
 
+## 🚀 Key Features
 
+### 1. 📊 Interactive Exploratory Data Analysis (EDA)
+- **Deep-Dive Filters**: Filter the Netflix dataset in real-time by Content Type (Movie vs. TV Show), Release Year, Ratings, Genres/Categories, and Primary Country of production.
+- **Top Genres Distribution**: Interactive bar charts highlighting dominant content categories.
+- **Library Growth Trends**: Dynamic line/area charts visualizing library expansions over time.
+- **Ratings & Geographic Insights**: Explore content strategy and audience targeting.
+- **Parsed Duration Analysis**: Automatically parses and models Movie runtimes (in minutes) and TV Show lifespans (in seasons).
 
-[Image of Normal distribution vs skewed distribution curves]
-## 📊 Visualizations
+### 2. 🤖 Interactive Machine Learning Pipeline
+- **Content Type Classifier**: Train an on-the-fly **Random Forest** model using attributes like release year, rating, country, and year added. Input custom features to predict in real-time if a title will be a Movie or a TV Show.
+- **K-Means Content Clustering**: Groups the catalog into 5 distinct cluster profiles (e.g., retro classics, mainstream adult movies, teen family movies, etc.) with detailed breakdowns.
+- **Descriptive Statistical Audits**: Computes and plots skewness, kurtosis, standard deviations, and central tendencies (mean/median indicators) for any selected numeric metric.
 
-### 1. Strategy Shift (Movies vs TV Shows)
-This chart tracks how Netflix has changed its library composition over the last decade.
-![Content Trends](images/content_trends.png)
+### 3. 🎬 Natural Language Content Recommender
+- **TF-IDF Vectorization**: Parses word soups combining titles, descriptions, directors, and genre tags to build a sparse NLP feature matrix.
+- **Cosine Similarity Engine**: Quantifies likeness between all titles in the catalog.
+- **Interactive Matching**: Type or select any Netflix title from a dropdown of over 8,800 to instantly see the Top 5 recommendations with percentage match scores.
+- **Similarity Heatmap**: Pairwise similarity heatmap of recommended titles to visualize semantic clusters.
 
-### 2. Global Content Distribution
-An interactive map showing which countries are the biggest contributors to the Netflix library.
-![Global Map](images/global_map.png)
-### 📈 Exploratory Data Analysis (EDA)
-Beyond basic counts, this phase focused on finding hidden relationships:
-- **Feature Correlation:** Utilized Heatmaps to identify strong linear relationships between variables (e.g., Sales vs. Profit).
-- **Data Distribution:** Analyzed skewness and kurtosis of key metrics to prepare for future predictive modeling.
-- **Segment Analysis:** Grouped data by categories to identify high-value clusters.
-
-![Correlation Heatmap](images/correlation_heatmap.png)
 ---
 
-## 🛠️ Installation & Usage
+## 📂 Project Structure
 
-1. **Clone the repo:**
-   ```bash
-   git clone [https://github.com/jaishdahiya6-del/netflix-content-analysis.git](https://github.com/jaishdahiya6-del/netflix-content-analysis.git)
+```
+netflix-content-analysis/
+├── data/
+│   ├── netflix_titles.csv         # Raw Netflix dataset (8,807 titles)
+│   └── cleaned_netflix_data.csv   # Preprocessed/Cleaned dataset with engineered features
+├── images/                        # Exported static analysis plots
+├── pages/                         # Multi-page Streamlit views
+│   ├── 01_📊_Exploratory_Data_Analysis.py
+│   ├── 02_🤖_Machine_Learning.py
+│   └── 03_🎬_Smart_Recommender.py
+├── src/                           # Analytical core modules
+│   ├── data_loader.py             # Robust data ingestion module
+│   ├── data_cleaning.py           # Handles missing values, duplicates, feature engineering
+│   ├── eda.py                     # Portfolio-grade EDA pipeline
+│   ├── insights.py                # Descriptive statistics and distribution reports
+│   ├── ml_models.py               # Classification, clustering, and TF-IDF engines
+│   └── recommender.py             # Standalone recommendation logic
+├── visualizations/                # Automated ML pipeline exports
+├── app.py                         # Streamlit landing page & executive dashboard
+├── requirements.txt               # Maintained dependency definitions
+├── run_project.py                 # Core business logic unit tests
+└── README.md                      # Setup and usage guide
+```
+
+---
+
+## 🛠️ Local Installation & Setup
+
+Follow these simple steps to run the dashboard locally in your environment:
+
+### 1. Clone the repository:
+```bash
+git clone https://github.com/jaishdahiya6-del/netflix-content-analysis.git
+cd netflix-content-analysis
+```
+
+### 2. Install dependencies:
+Make sure you have Python 3.8+ installed, then run:
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Run unit tests to verify:
+```bash
+python run_project.py
+```
+
+### 4. Run the core pipelines to generate static visualizations:
+```bash
+python src/data_cleaning.py
+python src/eda.py
+python src/insights.py
+python src/ml_models.py
+```
+
+### 5. Start the Interactive Web Dashboard:
+```bash
+streamlit run app.py
+```
+This will spin up a local development server and open the web application automatically in your browser at `http://localhost:8501`.
+
+---
+
+## 🤝 Key Insights & Recommendations
+- **TV Show Transition**: Analysis shows Netflix began focusing heavily on multi-season TV Shows starting around 2015 to foster binge-watching habits and reduce user churn.
+- **Global Strategy**: While the United States remains the largest producer, regional originals (especially in India, South Korea, and Spain) represent the fastest-growing categories.
+- **Demographics Focus**: Adults (TV-MA, R) represent approximately 46% of the content library, serving premium paying demographics. Expanding family categories presents a key opportunity to reduce household subscription churn.
