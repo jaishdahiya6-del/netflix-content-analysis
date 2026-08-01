@@ -3,8 +3,7 @@
 Statistical Distribution Analysis
 ===========================================================
 
-Author      : Your Name
-Project     : Data Science Statistics Report
+Project     : Netflix Data Science Statistics Report
 Description : Calculates descriptive statistics and
               visualizes the distribution of a numeric column.
 
@@ -25,12 +24,21 @@ Features
 
 import logging
 from pathlib import Path
+import os
+import sys
 
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from scipy.stats import kurtosis, skew
 
+# Add root folder to path so we can import from src
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if base_dir not in sys.path:
+    sys.path.insert(0, base_dir)
+
+from src.data_loader import load_netflix_data
+from src.data_cleaning import clean_netflix_data
 
 # ---------------------------------------------------------
 # Logging Configuration
@@ -149,7 +157,7 @@ def statistical_distribution_report(
         plt.savefig(image_path, dpi=300, bbox_inches="tight")
         logger.info("Visualization saved to %s", image_path)
 
-    plt.show()
+    plt.close()
 
     return statistics
 
@@ -162,15 +170,18 @@ def main() -> None:
     Execute statistical analysis.
     """
 
-    DATASET = "amazon_sales.csv"
-    COLUMN = "Sales"
-
     try:
-        logger.info("Loading dataset...")
+        logger.info("Loading Netflix dataset...")
 
-        df = pd.read_csv(DATASET)
+        df_raw = load_netflix_data()
+        df = clean_netflix_data(df_raw)
 
-        logger.info("Dataset loaded successfully.")
+        COLUMN = "release_year"
+        if COLUMN not in df.columns:
+            logger.error("Column '%s' not found in Netflix dataset.", COLUMN)
+            return
+
+        logger.info("Dataset loaded and cleaned successfully.")
 
         report = statistical_distribution_report(df, COLUMN)
 
@@ -182,9 +193,6 @@ def main() -> None:
             print(f"{metric:<22}: {value:.2f}")
 
         print("=" * 55)
-
-    except FileNotFoundError:
-        logger.error("Dataset '%s' not found.", DATASET)
 
     except Exception as error:
         logger.exception("Unexpected Error: %s", error)
