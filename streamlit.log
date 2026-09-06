@@ -1,0 +1,77 @@
+
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to false.
+
+2026-09-06 15:57:25.238 Uvicorn server started on :::8501
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+  Network URL: http://192.168.0.2:8501
+  External URL: http://34.133.87.101:8501
+
+2026-09-06 15:57:58,578 | INFO | netflix_dashboard | Initiating dataset loading sequence...
+2026-09-06 15:57:58,907 | INFO | netflix_dashboard | Dataset ready. Final shape: (8807, 16)
+2026-09-06 15:57:59.425 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-09-06 15:57:59.495 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-09-06 15:57:59.583 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-09-06 15:57:59.697 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-09-06 15:57:59.910 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-09-06 15:57:59.916 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-09-06 15:58:00.015 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-09-06 15:58:00.206 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+==================================================
+✅ Dataset Loaded Successfully!
+==================================================
+📊 Total rows    : 8,807
+📋 Total columns : 12
+📁 File path     : /app/data/netflix_titles.csv
+==================================================
+
+📌 Column Names:
+   • show_id
+   • type
+   • title
+   • director
+   • cast
+   • country
+   • date_added
+   • release_year
+   • rating
+   • duration
+   • listed_in
+   • description
+==================================================
+✅ Data cleaning complete. Cleaned shape: (8807, 16)
+  Stopping...
